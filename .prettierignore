@@ -1,0 +1,7 @@
+!.*.js
+!.*.yml
+**/CHANGELOG.md
+dist
+package-lock.json
+**/node_modules
+vue.config.js
