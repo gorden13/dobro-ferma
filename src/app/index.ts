@@ -1,22 +1,12 @@
-import Vue from 'vue';
+import { createApp } from 'vue';
 
 import App from './App.vue';
-import apiPlugin, { HttpOptions, useHttpPlugin } from './api';
-import { BASE_URL } from './api/constants';
+import { apiPlugin } from './api';
 import { router, pinia } from './providers';
 
-Vue.use<HttpOptions>(useHttpPlugin, {
-  baseURL: BASE_URL,
-});
-
-Vue.use(apiPlugin, {
-  baseUrl: BASE_URL,
-});
-
-export const initApp = () => {
-  return new Vue({
-    pinia,
-    router,
-    render: (h) => h(App),
+export const app = createApp(App)
+  .use(pinia)
+  .use(router)
+  .use(apiPlugin, {
+    baseURL: import.meta.env.BASE_URL,
   });
-};

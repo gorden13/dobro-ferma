@@ -1,38 +1,27 @@
 import axios from 'axios';
 import axiosRetry, { IAxiosRetryConfig } from 'axios-retry';
 import qs from 'qs';
-import Vue, { PluginObject } from 'vue';
+import { App } from 'vue';
 
 import { DEFAULT_HTTP_TIMEOUT } from './constants';
 import CreateRequests from './requests';
-
-export * from './types';
 
 interface InterceptorEntity {
   isActive?: boolean;
 }
 
-export interface HttpOptions {
+interface HttpOptions {
   retry?: IAxiosRetryConfig;
   baseURL: string;
   authBlackListUrls?: (string | RegExp | unknown)[];
   auth?: InterceptorEntity;
   timeout?: number;
-  requestSuccessInterceptor?: <T>(value: T) => T | Promise<T>;
-  requestErrorInterceptor?: <T>(error: T) => Promise<T>;
-  responseErrorInterceptor?: <T>(error: T) => Promise<T>;
-  responsePrintDebugInfoInterceptor?: <T>(value: T) => Promise<T>;
-  requestSetStartTimeInterceptor?: <T>(value: T) => Promise<T>;
-  responseSuccessInterceptor?: <T>(value: T) => Promise<T>;
-  requestKeycloakInterceptor?: <T>(value: T) => Promise<T>;
 }
 
-export const useHttpPlugin: PluginObject<HttpOptions> = {
-  install(vm: typeof Vue, options = {} as HttpOptions) {
-    const { baseURL } = options;
-
+export const apiPlugin = {
+  install: (app: App, options: HttpOptions = {} as HttpOptions) => {
     const http = axios.create({
-      baseURL,
+      baseURL: options.baseURL,
       withCredentials: false,
       paramsSerializer(params) {
         return qs.stringify(params, { arrayFormat: 'repeat' });
@@ -46,21 +35,13 @@ export const useHttpPlugin: PluginObject<HttpOptions> = {
       ...options.retry,
     });
 
-    if (!vm.prototype.$http) {
-      Object.defineProperty(vm.prototype, `$http`, {
-        value: http,
-        writable: false,
-      });
-    }
-  },
-};
-
-export default {
-  install(vue: typeof Vue, options: { baseUrl: string }) {
-    Object.defineProperty(vue.prototype, '$api', {
+    const requestsModule = {
       value: {
-        ...new CreateRequests(vue.prototype.$http, options.baseUrl),
+        ...new CreateRequests(http, options.baseURL),
       },
-    });
+    };
+
+    app.config.globalProperties.$http = http;
+    app.config.globalProperties.$api = requestsModule;
   },
 };

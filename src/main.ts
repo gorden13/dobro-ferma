@@ -1,4 +1,3 @@
-import { initApp } from './app';
+import { app } from './app';
 
-const app = initApp();
-app.$mount('#app');
+app.mount('#app');

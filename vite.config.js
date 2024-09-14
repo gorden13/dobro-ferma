@@ -1,6 +1,6 @@
 import { resolve } from 'path';
 
-import vue from '@vitejs/plugin-vue2';
+import vue from '@vitejs/plugin-vue';
 import { defineConfig, loadEnv } from 'vite';
 // import { visualizer } from 'rollup-plugin-visualizer';
 // import htmlPurge from 'vite-plugin-purgecss';
