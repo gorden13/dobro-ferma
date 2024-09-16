@@ -1,18 +1,16 @@
 <template>
   <div class="products-page">
-    <h1>
-      {{ title }}
-    </h1>
+    <ul class="products-list">
+      <li v-for="product of products" :key="product.id" class="products-list__item">
+        <div>
+          <h4>
+            {{ product.name }}
+          </h4>
 
-    <ul>
-      <li v-for="product of products" :key="product.id">
-        <h4>
-          {{ product.name }}
-        </h4>
+          <p>{{ product.category === 'other' ? 'прочее' : '' }}</p>
+        </div>
 
-        <p>
-          {{ product.category }}
-        </p>
+        <div>цена: {{ product.price }} р</div>
       </li>
     </ul>
   </div>
@@ -25,27 +23,33 @@
   import { useProductsStore } from '@/entities/products/store';
 
   const productsStore = useProductsStore();
-
-  const title = 'Эта страница с продукцией';
+  const products = ref<IProduct[]>([]);
 
   const getProducts = async () => {
-    await productsStore.getProductsList({
-      page: {
-        pageNumber: 1,
-        pageSize: 20,
-        sortProperties: [],
-      },
-      search: '',
-    });
+    const result = await productsStore.getProductsList();
 
-    Object.assign([], productsStore.productsList);
+    products.value = result;
   };
-
-  const products = ref<IProduct[]>([]);
 
   getProducts();
 </script>
 
 <style scoped lang="scss">
-  // empty
+  .products-list {
+    height: 300px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+
+    &__item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 50px;
+      padding: 0 16px;
+      margin: 10px;
+      color: var(-el-color-info-light-5);
+      background: var(--el-color-primary-light-9);
+    }
+  }
 </style>

@@ -8,7 +8,7 @@ export default [
     name: ROUTES.Products.name,
     meta: {
       layout: ELayouts.COMMON,
-      // auth: true,
+      auth: true,
       title: ROUTES.Products.title,
     },
     component: () => import('@/pages/ProductsPage.vue'),
@@ -22,5 +22,14 @@ export default [
     },
     props: true,
     component: () => import('@/pages/ErrorPage.vue'),
+  },
+  {
+    path: '/auth',
+    name: ROUTES.AuthForm.name,
+    meta: {
+      layout: ELayouts.AUTH,
+      title: ROUTES.AuthForm.title,
+    },
+    component: () => import('@/pages/AuthPage.vue'),
   },
 ];

@@ -2,18 +2,15 @@ import { AxiosInstance, AxiosRequestConfig, AxiosResponse, CancelToken } from 'a
 
 import { IProduct, IProductsRequest } from './dto';
 
-import { IPaging } from '@/shared/types';
-
 export type TProductsApi = {
   getProducts: (
-    data: IProductsRequest,
     cancelToken?: Record<string, CancelToken | undefined>,
-  ) => Promise<AxiosResponse<IPaging<IProduct[]>, AxiosRequestConfig<IProductsRequest>>>;
+  ) => Promise<AxiosResponse<IProduct[], AxiosRequestConfig<IProductsRequest>>>;
 };
 
 export const productsApi = (http: AxiosInstance): TProductsApi => ({
-  async getProducts(data: IProductsRequest, { cancelToken } = {}) {
-    const result = await http.post('products/list', data, { cancelToken });
+  async getProducts({ cancelToken } = {}) {
+    const result = await http.get('products', { cancelToken });
 
     return result;
   },

@@ -7,10 +7,10 @@ export const useProductsStore = defineStore('products', {
     productsList: [] as IProduct[],
   }),
   actions: {
-    async getProductsList(data: IProductsRequest) {
+    async getProductsList() {
       try {
-        const response = await this.$api.getProducts(data);
-        this.productsList = response.data.items;
+        const response = await this.$api.getProducts();
+        this.productsList = response.data;
 
         return response.data;
       } catch (error) {

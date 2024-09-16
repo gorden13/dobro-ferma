@@ -35,11 +35,7 @@ export const apiPlugin = {
       ...options.retry,
     });
 
-    const requestsModule = {
-      value: {
-        ...new CreateRequests(http, options.baseURL),
-      },
-    };
+    const requestsModule = {...new CreateRequests(http, options.baseURL)};
 
     app.config.globalProperties.$http = http;
     app.config.globalProperties.$api = requestsModule;

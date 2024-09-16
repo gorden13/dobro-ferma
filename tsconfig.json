@@ -19,7 +19,8 @@
     "outDir": "dist",
     "types": [
       "node",
-      "vite/client"
+      "vite/client",
+      "element-plus/global"
     ],
     "paths": {
       "@/*": [

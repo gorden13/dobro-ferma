@@ -11,15 +11,14 @@ const router = createRouter({
 });
 
 router.beforeEach((to, _from, next) => {
-  if (to.meta?.auth) {
-    const noAccess = authGuard();
-
-    if (noAccess) {
-      next({
-        name: ROUTES.ErrorPage.name,
-        params: { title: 'У данного пользователя нет прав' },
-      });
-    }
+  if (to.meta?.auth && !authGuard()) {
+    next({
+      name: ROUTES.AuthForm.name,
+    });
+  } else if (to.name === 'auth' && authGuard()) {
+    next({
+      name: ROUTES.Products.name,
+    });
   } else {
     next();
   }

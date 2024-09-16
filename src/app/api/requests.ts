@@ -1,6 +1,7 @@
 import { AxiosInstance } from 'axios';
 
 import { productsApi } from '@/entities/products';
+import { authApi } from '@/entities/auth';
 
 export default class Requests {
   constructor(
@@ -9,6 +10,7 @@ export default class Requests {
   ) {
     const requests = {
       ...productsApi(this.http),
+      ...authApi(this.http),
       http: this.http,
       baseUrl: this.baseUrl,
     };

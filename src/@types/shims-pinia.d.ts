@@ -1,5 +1,5 @@
 import 'pinia';
-import { TServiceApi } from '../app/api';
+import { TServiceApi } from './../app/api/types';
 
 declare module 'pinia' {
   export interface PiniaCustomProperties {
