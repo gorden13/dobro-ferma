@@ -18,8 +18,8 @@
       >
         <ElMenuItem default-active index="/">Продукция</ElMenuItem>
 
-        <ElMenuItem index="/shops" disabled>
-          <ElBadge type="success" value="new">Магазины</ElBadge>
+        <ElMenuItem index="/shops">
+          <ElBadge :offset="[5, 10]" type="success" value="new">Магазины</ElBadge>
         </ElMenuItem>
       </ElMenu>
     </ElAside>
@@ -53,18 +53,15 @@
   .common-layout {
     height: 100vh;
 
-    &__menu {
-      background-color: var(--el-color-success-light-8);
-    }
-
     &__header {
       display: flex;
       justify-content: space-between;
-      background-color: var(--el-color-primary-light-7);
+      background-color: var(--color-2);
     }
 
     &__main {
-      background-color: var(--el-color-white);
+      padding: 0;
+      background-color: var(--el-bg-color-page);
     }
 
     &__logo {
@@ -74,6 +71,19 @@
     &__logo-image {
       width: 100%;
       height: 125px;
+    }
+
+    &__menu {
+      background-color: var(--color-2);
+      border-right: 1px solid var(--el-color-info-light-8);
+
+      &:deep(.el-menu) {
+        border-right: none;
+      }
+    }
+
+    &__navigation {
+      margin-top: 24px;
     }
 
     &__user-panel {

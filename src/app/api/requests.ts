@@ -1,7 +1,7 @@
 import { AxiosInstance } from 'axios';
 
-import { productsApi } from '@/entities/products';
 import { authApi } from '@/entities/auth';
+import { productsApi } from '@/entities/products';
 
 export default class Requests {
   constructor(

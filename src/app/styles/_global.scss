@@ -1,8 +1,24 @@
+:root {
+  --primary-bg-color: #99F;
+  --secondary-bg-color: #FFC;
+  --color-1: #2779a7;
+  --color-2: #49c5b6;
+  --color-3: #ECD06F;
+}
+
 * {
   padding: 0;
   margin: 0;
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: Inter, 'Helvetica Neue', Helvetica, 'PingFang SC',
+  'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+}
+
+.el-button-group {
+  display: flex;
+  column-gap: 8px;
+  align-items: center;
+  justify-content: flex-end;
 }

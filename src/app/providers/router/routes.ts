@@ -14,6 +14,16 @@ export default [
     component: () => import('@/pages/ProductsPage.vue'),
   },
   {
+    path: '/shops',
+    name: ROUTES.Shops.name,
+    meta: {
+      layout: ELayouts.COMMON,
+      auth: true,
+      title: ROUTES.Shops.title,
+    },
+    component: () => import('@/pages/ShopsPage.vue'),
+  },
+  {
     path: '/error',
     name: ROUTES.ErrorPage.name,
     meta: {

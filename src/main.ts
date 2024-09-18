@@ -1,3 +1,6 @@
-import { app } from './app';
+import { initApp } from './app';
 
-app.mount('#app');
+(async () => {
+  const app = await initApp();
+  app.mount('#app');
+})();

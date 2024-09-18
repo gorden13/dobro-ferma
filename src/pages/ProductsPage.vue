@@ -1,35 +1,58 @@
 <template>
   <div class="products-page">
-    <ul class="products-list">
-      <li v-for="product of products" :key="product.id" class="products-list__item">
-        <div>
-          <h4>
-            {{ product.name }}
-          </h4>
+    <UiPageSubHeader>
+      <template #right>
+        <ElButton type="success" @click="isVisibleCreateProductModal = true">
+          Создать товар
+          <ElIcon class="el-icon--right"><Plus /></ElIcon>
+        </ElButton>
+      </template>
+    </UiPageSubHeader>
 
-          <p>{{ product.category === 'other' ? 'прочее' : '' }}</p>
-        </div>
+    <UIModalCard v-model:visible="isVisibleCreateProductModal" title="Создать карточку">
+      <template #body>
+        <CreateProductCard v-model:is-form-valid="isValidCreateProductCard" />
+      </template>
 
-        <div>цена: {{ product.price }} р</div>
-      </li>
-    </ul>
+      <template #footer>
+        <ElButtonGroup>
+          <ElButton @click="isVisibleCreateProductModal = false">Отмена</ElButton>
+          <ElButton type="primary" :disabled="!isValidCreateProductCard">Сохранить</ElButton>
+        </ElButtonGroup>
+      </template>
+    </UIModalCard>
+
+    <div class="products-page__list">
+      <ProductCard v-for="product of products" :key="product.id" :card="product" />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-  import { ref } from 'vue';
+  import { ElButton } from 'element-plus';
+  import { ref, watch } from 'vue';
 
-  import { IProduct } from '@/entities/products';
+  import { CreateProductCard, IProduct, ProductCard } from '@/entities/products';
   import { useProductsStore } from '@/entities/products/store';
+  import { UIModalCard, UiPageSubHeader } from '@/shared/ui';
 
   const productsStore = useProductsStore();
   const products = ref<IProduct[]>([]);
+  const isVisibleCreateProductModal = ref(false);
+  const isValidCreateProductCard = ref(false);
 
   const getProducts = async () => {
     const result = await productsStore.getProductsList();
 
     products.value = result;
   };
+
+  watch(
+    () => isVisibleCreateProductModal.value,
+    (value: boolean) => {
+      console.log(value);
+    },
+  );
 
   getProducts();
 </script>

@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
-import { authGuard } from './auth-guard';
+import { isAuthenticated } from './auth-guard';
 import routes from './routes';
 
 import { ROUTES } from '@/shared/constants';
@@ -10,12 +10,12 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to, _from, next) => {
-  if (to.meta?.auth && !authGuard()) {
+router.beforeEach(async (to, _from, next) => {
+  if (to.meta?.auth && !isAuthenticated()) {
     next({
       name: ROUTES.AuthForm.name,
     });
-  } else if (to.name === 'auth' && authGuard()) {
+  } else if (to.name === 'auth' && (await isAuthenticated())) {
     next({
       name: ROUTES.Products.name,
     });

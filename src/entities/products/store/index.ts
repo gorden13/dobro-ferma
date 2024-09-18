@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 
-import { IProduct, IProductsRequest } from '../api/dto';
+import { IProduct } from '../api/dto';
 
 export const useProductsStore = defineStore('products', {
   state: () => ({

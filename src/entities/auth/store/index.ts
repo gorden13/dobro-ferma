@@ -3,15 +3,15 @@ import { defineStore } from 'pinia';
 import { IVerificationForm } from '../api/dto';
 
 export const useAuthStore = defineStore('auth', {
-  state: () => ({}),
+  state: () => ({
+    isAuthenticated: false,
+  }),
   actions: {
     async logIn(data: IVerificationForm) {
       try {
         const response = await this.$api.logIn(data);
 
-        localStorage.setItem('ticket', response.data.token);
-
-        return response.data.token;
+        return response.data;
       } catch (error) {
         return Promise.reject(error);
       }

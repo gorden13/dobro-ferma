@@ -50,7 +50,13 @@
 
     await delay(500);
 
-    await autStore.logIn(authForm);
+    const result = await autStore.logIn(authForm);
+
+    if (result.success) {
+      autStore.$patch({
+        isAuthenticated: true,
+      });
+    }
 
     isSubmitBtnDisabled.value = false;
   };

@@ -6,7 +6,7 @@ export interface IProduct {
   available: true;
   createdAt: string;
   description: string;
-  discount: null;
+  discount: number | null;
   likes: [];
   pictures: string;
   price: number;
