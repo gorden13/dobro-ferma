@@ -2,7 +2,7 @@ import { AxiosInstance } from 'axios';
 
 import { TAuthApi } from '@/entities/auth';
 import { TProductsApi } from '@/entities/products';
-import { TUserApi } from '@/entities/users/api';
+import { TUserApi } from '@/entities/user/api';
 
 export interface IBaseApi {
   http: AxiosInstance;

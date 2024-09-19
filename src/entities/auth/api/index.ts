@@ -6,7 +6,15 @@ export type TAuthApi = {
   logIn: (
     data: IVerificationForm,
     cancelToken?: Record<string, CancelToken | undefined>,
-  ) => Promise<AxiosResponse<{ token: string }, AxiosRequestConfig<IVerificationForm>>>;
+  ) => Promise<
+    AxiosResponse<
+      {
+        success: any;
+        token: string;
+      },
+      AxiosRequestConfig<IVerificationForm>
+    >
+  >;
   register: (
     data: IVerificationForm,
     cancelToken?: Record<string, CancelToken | undefined>,
