@@ -2,11 +2,7 @@
   <ElContainer class="common-layout">
     <ElAside class="common-layout__menu" width="200px">
       <div class="common-layout__logo">
-        <ElImage
-          class="common-layout__logo-image"
-          fit="cover"
-          src="https://png.pngtree.com/png-vector/20190322/ourlarge/pngtree-eco-farm-logo-vector-template-design-illustration-png-image_859744.jpg"
-        />
+        <ElImage class="common-layout__logo-image" fit="cover" :src="logo" />
       </div>
 
       <ElMenu
@@ -41,6 +37,8 @@
   import { ElAside, ElContainer, ElHeader, ElAvatar, ElMain, ElMenu, ElMenuItem, ElBadge } from 'element-plus';
   import { ref } from 'vue';
 
+  import logo from '../images/logo-big.png';
+
   const handleOpen = (key: string, keyPath: string[]) => {
     //
   };
@@ -56,7 +54,7 @@
     &__header {
       display: flex;
       justify-content: space-between;
-      background-color: var(--color-2);
+      border-bottom: 1px solid lightgrey;
     }
 
     &__main {
@@ -64,26 +62,13 @@
       background-color: var(--el-bg-color-page);
     }
 
-    &__logo {
-      height: 125px;
-    }
-
-    &__logo-image {
-      width: 100%;
-      height: 125px;
-    }
-
     &__menu {
-      background-color: var(--color-2);
       border-right: 1px solid var(--el-color-info-light-8);
 
       &:deep(.el-menu) {
+        background-color: cornsilk;
         border-right: none;
       }
-    }
-
-    &__navigation {
-      margin-top: 24px;
     }
 
     &__user-panel {

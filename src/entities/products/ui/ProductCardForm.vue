@@ -1,20 +1,34 @@
 <template>
-  <ElCard class="create-product-card">
-    <ElForm>
+  <ElCard class="product-card">
+    <ElForm label-width="auto">
       <ElFormItem label="Наименование">
-        <ElInput v-model="createFormData.name" />
+        <ElInput v-model="createFormData.name" clearable />
       </ElFormItem>
 
       <ElFormItem label="Описание">
-        <ElInput v-model="createFormData.name" />
+        <ElInput
+          v-model="createFormData.description"
+          clearable
+          :autosize="{ minRows: 2, maxRows: 4 }"
+          type="textarea"
+        />
       </ElFormItem>
 
       <ElFormItem label="Цена">
-        <ElInput v-model="createFormData.name" />
+        <ElInput
+          v-model="createFormData.price"
+          :formatter="(value: string) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, '.')"
+          :parser="(value: string) => value.replace(/\$\s?|(,*)/g, '')"
+          clearable
+        >
+          <template #append>₽</template>
+        </ElInput>
       </ElFormItem>
 
-      <ElFormItem label="Вес (кг)">
-        <ElInput v-model="createFormData.weight" />
+      <ElFormItem label="Вес">
+        <ElInput v-model="createFormData.weight">
+          <template #append>кг</template>
+        </ElInput>
       </ElFormItem>
     </ElForm>
   </ElCard>
@@ -53,7 +67,7 @@
 </script>
 
 <style scoped>
-  .create-product-card {
+  .product-card {
     overflow: auto;
   }
 </style>

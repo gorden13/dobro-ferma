@@ -14,7 +14,7 @@
   .page-sub-header {
     display: flex;
     align-items: center;
-    padding: 12px 48px;
+    padding: 12px 24px;
     background: #fff;
     border-bottom: 1px solid lightgrey;
 
