@@ -20,7 +20,11 @@
     </div>
 
     <template #footer>
-      <div class="flex items-center"><ElButton type="text">Удалить</ElButton></div>
+      <ElRow justify="end">
+        <div class="flex items-center">
+          <ElButton type="default"><ElText type="danger">Удалить</ElText></ElButton>
+        </div>
+      </ElRow>
     </template>
   </ElCard>
 </template>

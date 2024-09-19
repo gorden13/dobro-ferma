@@ -66,7 +66,7 @@
       border-right: 1px solid var(--el-color-info-light-8);
 
       &:deep(.el-menu) {
-        background-color: cornsilk;
+        background-color: lavender;
         border-right: none;
       }
     }

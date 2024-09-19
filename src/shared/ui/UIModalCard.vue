@@ -1,5 +1,5 @@
 <template>
-  <ElDialog v-model="dialogVisibleModel" destroy-on-close @close="closeModal">
+  <ElDialog v-model="dialogVisibleModel" destroy-on-close append-to-body @close="closeModal">
     <template #default>
       <slot name="body"></slot>
     </template>
