@@ -7,29 +7,26 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    ElAvatar: typeof import('element-plus/es')['ElAvatar']
-    ElBadge: typeof import('element-plus/es')['ElBadge']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElButtonGroup: typeof import('element-plus/es')['ElButtonGroup']
     ElCard: typeof import('element-plus/es')['ElCard']
+    ElCarousel: typeof import('element-plus/es')['ElCarousel']
+    ElCarouselItem: typeof import('element-plus/es')['ElCarouselItem']
     ElCol: typeof import('element-plus/es')['ElCol']
-    ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider']
     ElDialog: typeof import('element-plus/es')['ElDialog']
     ElForm: typeof import('element-plus/es')['ElForm']
     ElFormItem: typeof import('element-plus/es')['ElFormItem']
-    ElHeader: typeof import('element-plus/es')['ElHeader']
     ElIcon: typeof import('element-plus/es')['ElIcon']
     ElImage: typeof import('element-plus/es')['ElImage']
     ElInput: typeof import('element-plus/es')['ElInput']
-    ElMain: typeof import('element-plus/es')['ElMain']
-    ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
-    ElPageHeader: typeof import('element-plus/es')['ElPageHeader']
     ElRow: typeof import('element-plus/es')['ElRow']
-    ElTag: typeof import('element-plus/es')['ElTag']
     ElText: typeof import('element-plus/es')['ElText']
-    ElTextArea: typeof import('element-plus/es')['ElTextArea']
+    ElUpload: typeof import('element-plus/es')['ElUpload']
     ElWatermark: typeof import('element-plus/es')['ElWatermark']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+  }
+  export interface ComponentCustomProperties {
+    vLoading: typeof import('element-plus/es')['ElLoadingDirective']
   }
 }

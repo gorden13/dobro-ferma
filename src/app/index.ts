@@ -9,7 +9,16 @@ import { router, pinia } from './providers';
 
 const checkAccess = async () => {
   try {
-    const result = await (await fetch(`${import.meta.env.VITE_BASE_URL}users/me`)).json();
+    const headers = {
+      Authorization: `Bearer ${import.meta.env.VITE_TOKEN}`,
+    };
+
+    const result = await (
+      await fetch(`${import.meta.env.VITE_BASE_URL}users/me`, {
+        headers: !import.meta.env.PROD ? headers : {},
+        credentials: import.meta.env.PROD ? 'include' : undefined,
+      })
+    ).json();
 
     if (!result?.success) {
       router.push({ name: 'auth' });

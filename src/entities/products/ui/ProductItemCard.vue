@@ -5,7 +5,18 @@
     </template>
 
     <div class="product-item-card__body">
-      <UiImage :img-src="card.pictures" />
+      <ElCarousel trigger="click" :autoplay="false">
+        <ElCarouselItem v-for="picture in 3" :key="picture">
+          <div>
+            <UiImage
+              fit="fill"
+              loading="lazy"
+              style="height: 300px"
+              img-src="https://random-image-pepebigotes.vercel.app/api/random-image"
+            />
+          </div>
+        </ElCarouselItem>
+      </ElCarousel>
 
       <div class="product-item-card__props">
         <p class="product-item-card__price">
@@ -36,7 +47,7 @@
 
   import UiImage from '@/shared/ui/UiImage.vue';
 
-  defineProps({
+  const props = defineProps({
     card: {
       type: Object as PropType<IProduct>,
       default: () => ({}),
@@ -46,7 +57,7 @@
 
 <style lang="scss" scoped>
   .product-item-card {
-    width: 250px;
+    width: 300px;
 
     &__body {
       display: flex;
@@ -65,5 +76,13 @@
         content: '₽';
       }
     }
+  }
+
+  .el-carousel__item:nth-child(2n) {
+    background-color: #99a9bf;
+  }
+
+  .el-carousel__item:nth-child(2n + 1) {
+    background-color: #d3dce6;
   }
 </style>

@@ -20,13 +20,18 @@ interface HttpOptions {
 
 export const apiPlugin = {
   install: (app: App, options: HttpOptions = {} as HttpOptions) => {
+    const headers = {
+      Authorization: `Bearer ${import.meta.env.VITE_TOKEN}`,
+    };
+
     const http = axios.create({
       baseURL: options.baseURL,
-      withCredentials: false,
+      withCredentials: import.meta.env.PROD,
       paramsSerializer(params) {
         return qs.stringify(params, { arrayFormat: 'repeat' });
       },
       timeout: options.timeout ?? DEFAULT_HTTP_TIMEOUT,
+      headers: !import.meta.env.PROD ? headers : {},
     });
 
     axiosRetry(http, {

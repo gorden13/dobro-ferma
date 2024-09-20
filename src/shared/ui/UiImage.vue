@@ -1,8 +1,8 @@
 <template>
-  <ElImage class="ui-image" :src="imgSrc" lazy>
+  <ElImage class="ui-image" :src="imgSrc">
     <template #error>
       <div class="ui-image__image-slot">
-        <el-icon><icon-picture /></el-icon>
+        <ElIcon><Picture /></ElIcon>
       </div>
     </template>
   </ElImage>

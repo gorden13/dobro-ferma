@@ -8,7 +8,7 @@ export interface IProduct {
   description: string;
   discount: number | null;
   likes: [];
-  pictures: string;
+  pictures: string[];
   price: number;
   review: string[];
   stock: number;
@@ -24,4 +24,17 @@ export interface IProductsRequest {
     pageSize: number;
     sortProperties: string[];
   };
+}
+
+export interface IProductCreateRequest {
+  name: string;
+  price: number | null;
+  category: string;
+  available: true;
+  _id: string;
+  description?: string;
+  discount?: number;
+  pictures?: File[];
+  stock: number;
+  weight: number | null;
 }

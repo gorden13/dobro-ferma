@@ -54,7 +54,11 @@
     &__header {
       display: flex;
       justify-content: space-between;
-      border-bottom: 1px solid lightgrey;
+      border-bottom: 1px solid var(--el-color-info-light-8);
+    }
+
+    &__logo {
+      border-bottom: 1px solid var(--el-color-info-light-8);
     }
 
     &__main {
@@ -66,7 +70,6 @@
       border-right: 1px solid var(--el-color-info-light-8);
 
       &:deep(.el-menu) {
-        background-color: lavender;
         border-right: none;
       }
     }

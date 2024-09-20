@@ -2,72 +2,92 @@
   <ElCard class="product-card">
     <ElForm label-width="auto">
       <ElFormItem label="Наименование">
-        <ElInput v-model="createFormData.name" clearable />
+        <ElInput v-model="createForm.name" clearable show-word-limit maxlength="50" />
       </ElFormItem>
 
       <ElFormItem label="Описание">
         <ElInput
-          v-model="createFormData.description"
+          v-model="createForm.description"
           clearable
           :autosize="{ minRows: 2, maxRows: 4 }"
           type="textarea"
+          show-word-limit
+          maxlength="300"
         />
       </ElFormItem>
 
-      <ElFormItem label="Цена">
-        <ElInput
-          v-model="createFormData.price"
-          :formatter="(value: string) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, '.')"
-          :parser="(value: string) => value.replace(/\$\s?|(,*)/g, '')"
-          clearable
-        >
-          <template #append>₽</template>
+      <ElFormItem label="Цена" class="product-card__short-field">
+        <UiCurrencyInput :model-value="createForm.price" />
+      </ElFormItem>
+
+      <ElFormItem label="Вес" class="product-card__short-field">
+        <ElInput v-model="createForm.weight">
+          <template #append>кг</template>
         </ElInput>
       </ElFormItem>
 
-      <ElFormItem label="Вес">
-        <ElInput v-model="createFormData.weight">
-          <template #append>кг</template>
-        </ElInput>
+      <ElFormItem>
+        <ElUpload v-model:file-list="createForm.pictures" class="upload-field">
+          <ElIcon class="el-icon--upload" :size="32"><UploadFilled color="var(--el-color-primary)" /></ElIcon>
+
+          <div class="el-upload__text">
+            <ElText type="primary">перетащите файлы для загрузки фото</ElText>
+          </div>
+
+          <template #tip>
+            <div class="el-upload__tip">файлы jpg/png с максимальным размером 500 кб</div>
+          </template>
+        </ElUpload>
       </ElFormItem>
     </ElForm>
   </ElCard>
 </template>
 
 <script setup lang="ts">
-  import { PropType, reactive } from 'vue';
+  import { computed, PropType } from 'vue';
 
-  import { IProduct } from '../api';
+  import { IProductCreateRequest } from '../api';
+
+  import { UiCurrencyInput } from '@/shared/ui';
 
   const props = defineProps({
     isFormValid: {
       type: Boolean as PropType<boolean>,
       default: false,
     },
+    modelValue: {
+      type: Object as PropType<IProductCreateRequest>,
+      default: () => ({}),
+    },
   });
 
-  const createFormData = reactive<IProduct>({
-    name: '',
-    pictures: '',
-    description: '',
-    id: '',
-    category: '',
-    author: '',
-    available: true,
-    createdAt: '',
-    discount: 0,
-    likes: [],
-    price: 0,
-    review: [],
-    stock: 0,
-    tags: [],
-    updatedAt: '',
-    weight: 0,
+  const emit = defineEmits<{
+    (e: 'update:modelValue', value: IProductCreateRequest): void;
+    (e: 'update:isFormValid', value: boolean): void;
+  }>();
+
+  const createForm = computed({
+    get() {
+      return props.modelValue;
+    },
+    set(form: IProductCreateRequest) {
+      emit('update:modelValue', form);
+    },
   });
 </script>
 
-<style scoped>
-  .product-card {
-    overflow: auto;
+<style lang="scss" scoped>
+  .upload-field {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 24px;
+    border: 1px dashed var(--el-color-primary);
+
+    &:deep(.el-upload) {
+      gap: 8px;
+    }
   }
 </style>

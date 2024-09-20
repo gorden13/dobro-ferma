@@ -16,7 +16,7 @@
     align-items: center;
     padding: 12px 24px;
     background: #fff;
-    border-bottom: 1px solid lightgrey;
+    border-bottom: 1px solid var(--el-color-info-light-8);
 
     &__right {
       display: flex;
