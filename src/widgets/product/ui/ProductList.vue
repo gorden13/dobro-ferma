@@ -45,7 +45,6 @@
 
   const removeParticipant = async (id: string) => {
     visibleRemoveModal.value = true;
-    console.log(id);
   };
 </script>
 
