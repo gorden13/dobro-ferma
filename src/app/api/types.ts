@@ -1,6 +1,8 @@
 import { AxiosInstance } from 'axios';
 
+import { TAuthApi } from '@/entities/auth';
 import { TProductsApi } from '@/entities/products';
+import { TUserApi } from '@/entities/user/api';
 
 export interface IBaseApi {
   http: AxiosInstance;
@@ -12,4 +14,4 @@ export type HttpError = {
   message?: string;
 };
 
-export type TServiceApi = IBaseApi & TProductsApi;
+export type TServiceApi = IBaseApi & TProductsApi & TAuthApi & TUserApi;

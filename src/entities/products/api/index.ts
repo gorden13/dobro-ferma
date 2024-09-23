@@ -1,21 +1,27 @@
 import { AxiosInstance, AxiosRequestConfig, AxiosResponse, CancelToken } from 'axios';
 
-import { IProduct, IProductsRequest } from './dto';
-
-import { IPaging } from '@/shared/types';
+import { IProduct, IProductCreateRequest, IProductsRequest } from './dto';
 
 export type TProductsApi = {
   getProducts: (
-    data: IProductsRequest,
     cancelToken?: Record<string, CancelToken | undefined>,
-  ) => Promise<AxiosResponse<IPaging<IProduct[]>, AxiosRequestConfig<IProductsRequest>>>;
+  ) => Promise<AxiosResponse<IProduct[], AxiosRequestConfig<IProductsRequest>>>;
+  createProduct: (
+    data: IProductCreateRequest,
+    cancelToken?: Record<string, CancelToken | undefined>,
+  ) => Promise<AxiosResponse<IProduct, AxiosRequestConfig<IProductCreateRequest>>>;
 };
 
 export const productsApi = (http: AxiosInstance): TProductsApi => ({
-  async getProducts(data: IProductsRequest, { cancelToken } = {}) {
-    const result = await http.post('products/list', data, { cancelToken });
+  async getProducts({ cancelToken } = {}) {
+    const result = await http.get('products/me', { cancelToken });
 
     return result;
+  },
+  async createProduct(data, { cancelToken } = {}) {
+    const result = await http.post('products', data, { cancelToken });
+
+    return result.data as AxiosResponse<IProduct>;
   },
 });
 

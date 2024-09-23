@@ -1,22 +1,27 @@
-import Vue from 'vue';
+import * as ElementPlusIconsVue from '@element-plus/icons-vue';
+import ElementPlus from 'element-plus';
+import { createApp, type App } from 'vue';
 
-import App from './App.vue';
-import apiPlugin, { HttpOptions, useHttpPlugin } from './api';
-import { BASE_URL } from './api/constants';
+import app from './App.vue';
+import 'element-plus/dist/index.css';
+import { apiPlugin } from './api';
 import { router, pinia } from './providers';
+import { checkAccess } from './services';
 
-Vue.use<HttpOptions>(useHttpPlugin, {
-  baseURL: BASE_URL,
-});
+export const initApp = async (): Promise<App<Element>> => {
+  await checkAccess(pinia);
 
-Vue.use(apiPlugin, {
-  baseUrl: BASE_URL,
-});
+  const mainApp = createApp(app)
+    .use(apiPlugin, {
+      baseURL: import.meta.env.VITE_BASE_URL,
+    })
+    .use(pinia)
+    .use(router)
+    .use(ElementPlus);
 
-export const initApp = () => {
-  return new Vue({
-    pinia,
-    router,
-    render: (h) => h(App),
-  });
+  for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+    mainApp.component(key, component);
+  }
+
+  return mainApp;
 };

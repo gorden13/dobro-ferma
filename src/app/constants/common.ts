@@ -1,4 +1,5 @@
 export enum ELayouts {
-  ERROR = 'PageStatusesLayout',
+  ERROR = 'ErrorLayout',
   COMMON = 'CommonLayout',
+  AUTH = 'AuthLayout',
 }

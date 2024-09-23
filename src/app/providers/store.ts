@@ -1,10 +1,7 @@
-import { createPinia, PiniaVuePlugin } from 'pinia';
-import Vue from 'vue';
-
-Vue.use(PiniaVuePlugin);
+import { createPinia } from 'pinia';
 
 export const pinia = createPinia();
 
-pinia.use(({ store }) => {
-  store.$api = Vue.prototype.$api;
+pinia.use(({ store, app }) => {
+  store.$api = app.config.globalProperties.$api;
 });

@@ -1,16 +1,28 @@
 import { defineStore } from 'pinia';
 
-import { IProduct, IProductsRequest } from '../api/dto';
+import { IProduct, IProductCreateRequest } from '../api/dto';
 
 export const useProductsStore = defineStore('products', {
   state: () => ({
     productsList: [] as IProduct[],
+    currentProduct: {} as IProduct,
   }),
   actions: {
-    async getProductsList(data: IProductsRequest) {
+    async getProductsList() {
       try {
-        const response = await this.$api.getProducts(data);
-        this.productsList = response.data.items;
+        const response = await this.$api.getProducts();
+        this.productsList = response.data;
+
+        return response.data;
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    },
+    async createProduct(data: IProductCreateRequest) {
+      try {
+        const response = await this.$api.createProduct(data);
+
+        this.currentProduct = response.data;
 
         return response.data;
       } catch (error) {

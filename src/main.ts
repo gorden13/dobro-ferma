@@ -1,4 +1,6 @@
 import { initApp } from './app';
 
-const app = initApp();
-app.$mount('#app');
+(async () => {
+  const app = await initApp();
+  app.mount('#app');
+})();
