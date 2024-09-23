@@ -1,9 +1,7 @@
-import { useAuthStore } from '@/entities/auth';
+import { useUserStore } from '@/entities/user';
 
 export const isAuthenticated = () => {
-  const authStore = useAuthStore();
+  const userStore = useUserStore();
 
-  // return authStore.isAuthenticated;
-
-  return true;
+  return userStore.user !== null;
 };

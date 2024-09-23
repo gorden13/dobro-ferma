@@ -1,5 +1,5 @@
 <template>
-  <UiModalCard v-model:visible="visibleModal" style="max-width: 500px" title="Создать карточку">
+  <UiModalCard v-model:visible="visibleModal" style="max-width: 700px" fullscreen title="Создать карточку">
     <template #body>
       <ProductCardForm
         v-model:model-value="createForm"
@@ -19,14 +19,15 @@
 
 <script setup lang="ts">
   import { ElNotification } from 'element-plus';
-  import { computed, h, PropType, reactive, ref } from 'vue';
+  import { computed, PropType, reactive, ref } from 'vue';
 
-  import { IProductCreateRequest, ProductCardForm, useProductsStore } from '@/entities/products';
+  import { IProductCreateRequest, useProductsStore } from '@/entities/products';
+  import { ProductCardForm } from '@/features/product';
   import { UiModalCard } from '@/shared/ui';
 
   const productsStore = useProductsStore();
 
-  const isValidCreateProductCard = ref(true);
+  const isValidCreateProductCard = ref(false);
   const isLoading = ref(false);
   const createForm = reactive<IProductCreateRequest>({
     name: '',
@@ -36,7 +37,7 @@
     available: true,
     discount: 0,
     price: null,
-    stock: 0,
+    stock: 1,
     weight: null,
     _id: '66e7f4994d8a72a78d4a7aea',
   });
@@ -71,6 +72,7 @@
       name: createForm.name,
       stock: createForm.stock,
       weight: createForm.weight,
+      pictures: createForm.pictures,
       _id: createForm._id,
     };
 
@@ -96,10 +98,6 @@
   };
 
   const cancelCreateProduct = () => {
-    //
+    emit('update:isVisible', false);
   };
 </script>
-
-<style lang="scss" scoped>
-  // .
-</style>

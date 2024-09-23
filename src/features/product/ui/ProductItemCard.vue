@@ -6,14 +6,9 @@
 
     <div class="product-item-card__body">
       <ElCarousel trigger="click" :autoplay="false">
-        <ElCarouselItem v-for="picture in 3" :key="picture">
+        <ElCarouselItem v-for="picture in card.pictures" :key="picture">
           <div>
-            <UiImage
-              fit="fill"
-              loading="lazy"
-              style="height: 300px"
-              img-src="https://random-image-pepebigotes.vercel.app/api/random-image"
-            />
+            <UiImage fit="contain" loading="lazy" style="height: 300px" :img-src="picture" />
           </div>
         </ElCarouselItem>
       </ElCarousel>
@@ -33,7 +28,9 @@
     <template #footer>
       <ElRow justify="end">
         <div class="flex items-center">
-          <ElButton type="default"><ElText type="danger">Удалить</ElText></ElButton>
+          <ElButton type="default">
+            <ElText type="danger" @click="removeProductItem(card._id)">Удалить</ElText>
+          </ElButton>
         </div>
       </ElRow>
     </template>
@@ -43,16 +40,21 @@
 <script setup lang="ts">
   import { PropType } from 'vue';
 
-  import { type IProduct } from '../api';
-
+  import type { IProduct } from '@/entities/products';
   import UiImage from '@/shared/ui/UiImage.vue';
 
-  const props = defineProps({
+  defineProps({
     card: {
       type: Object as PropType<IProduct>,
       default: () => ({}),
     },
   });
+
+  const emit = defineEmits<(event: 'remove', arg: string) => void>();
+
+  const removeProductItem = (id: string) => {
+    emit('remove', id);
+  };
 </script>
 
 <style lang="scss" scoped>
@@ -76,13 +78,5 @@
         content: '₽';
       }
     }
-  }
-
-  .el-carousel__item:nth-child(2n) {
-    background-color: #99a9bf;
-  }
-
-  .el-carousel__item:nth-child(2n + 1) {
-    background-color: #d3dce6;
   }
 </style>

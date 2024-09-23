@@ -21,6 +21,8 @@
 
 <style lang="scss" scoped>
   .ui-image {
+    background-color: #000;
+
     &__image-slot {
       display: flex;
       align-items: center;

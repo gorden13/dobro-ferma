@@ -21,8 +21,8 @@
   import { ElButton } from 'element-plus';
   import { ref } from 'vue';
 
-  import { CreateProduct, ProductList } from '@/features/product';
   import { UiPageSubHeader } from '@/shared/ui';
+  import { CreateProduct, ProductList } from '@/widgets/product';
 
   const isVisibleCreateProductModal = ref(false);
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <ElDialog v-model="dialogVisibleModel" destroy-on-close append-to-body @close="closeModal">
+  <ElDialog v-model="dialogVisibleModel" modal-class="ui-modal" destroy-on-close append-to-body @close="closeModal">
     <template #default>
       <slot name="body"></slot>
     </template>
@@ -35,3 +35,23 @@
     emit('update:visible', false);
   };
 </script>
+
+<style lang="scss">
+  .ui-modal {
+    .el-dialog.is-fullscreen {
+      display: flex;
+      flex-direction: column;
+      height: 95%;
+      margin-top: 1%;
+      overflow: hidden;
+
+      .el-dialog__body {
+        overflow: auto;
+      }
+
+      .el-dialog__footer {
+        margin-top: auto;
+      }
+    }
+  }
+</style>

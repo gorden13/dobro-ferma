@@ -1,2 +1,2 @@
-export { default as CreateProduct } from './CreateProduct.vue';
-export { default as ProductList } from './ProductList.vue';
+export { default as ProductItemCard } from '../../../features/product/ui/ProductItemCard.vue';
+export { default as ProductCardForm } from '../../../features/product/ui/ProductCardForm.vue';

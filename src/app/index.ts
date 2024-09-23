@@ -6,43 +6,10 @@ import app from './App.vue';
 import 'element-plus/dist/index.css';
 import { apiPlugin } from './api';
 import { router, pinia } from './providers';
-
-const checkAccess = async () => {
-  try {
-    const headers = {
-      Authorization: `Bearer ${import.meta.env.VITE_TOKEN}`,
-    };
-
-    const result = await (
-      await fetch(`${import.meta.env.VITE_BASE_URL}users/me`, {
-        headers: !import.meta.env.PROD ? headers : {},
-        credentials: import.meta.env.PROD ? 'include' : undefined,
-      })
-    ).json();
-
-    if (!result?.success) {
-      router.push({ name: 'auth' });
-      return;
-    }
-
-    pinia.use(({ store }) => {
-      store.user = {
-        ...result,
-      };
-    });
-
-    pinia.use(({ store }) => {
-      store.auth = {
-        isAuthenticated: true,
-      };
-    });
-  } catch (error) {
-    router.push({ name: 'auth' });
-  }
-};
+import { checkAccess } from './services';
 
 export const initApp = async (): Promise<App<Element>> => {
-  await checkAccess();
+  await checkAccess(pinia);
 
   const mainApp = createApp(app)
     .use(apiPlugin, {
@@ -52,7 +19,6 @@ export const initApp = async (): Promise<App<Element>> => {
     .use(router)
     .use(ElementPlus);
 
-  // eslint-disable-next-line no-restricted-syntax
   for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
     mainApp.component(key, component);
   }
