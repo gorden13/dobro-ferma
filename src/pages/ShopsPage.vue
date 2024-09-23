@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-  import UIWaterMark from '@/shared/ui/UIWaterMark.vue';
+  import UIWaterMark from '@/shared/ui/UiWaterMark.vue';
 </script>
 
 <style lang="scss" scoped>
