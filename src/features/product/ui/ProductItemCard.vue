@@ -6,9 +6,9 @@
 
     <div class="product-item-card__body">
       <ElCarousel trigger="click" :autoplay="false">
-        <ElCarouselItem v-for="picture in card.pictures" :key="picture">
+        <ElCarouselItem v-for="image in card.images" :key="image">
           <div>
-            <UiImage fit="contain" loading="lazy" style="height: 300px" :img-src="picture" />
+            <UiImage fit="contain" loading="lazy" style="height: 300px" :img-src="image" />
           </div>
         </ElCarouselItem>
       </ElCarousel>
@@ -27,11 +27,17 @@
 
     <template #footer>
       <ElRow justify="end">
-        <div class="flex items-center">
-          <ElButton type="default">
-            <ElText type="danger" @click="removeProductItem(card._id)">Удалить</ElText>
+        <ElTooltip content="Редактировать" placement="top">
+          <ElButton type="primary" plain @click="getProductById(card._id)">
+            <ElIcon><Edit /></ElIcon>
           </ElButton>
-        </div>
+        </ElTooltip>
+
+        <ElTooltip content="Удалить" placement="top">
+          <ElButton type="danger" plain @click="removeProductItem(card._id)">
+            <ElIcon><Delete /></ElIcon>
+          </ElButton>
+        </ElTooltip>
       </ElRow>
     </template>
   </ElCard>
@@ -50,10 +56,14 @@
     },
   });
 
-  const emit = defineEmits<(event: 'remove', arg: string) => void>();
+  const emit = defineEmits<(event: 'remove' | 'get-card', id: string) => void>();
 
   const removeProductItem = (id: string) => {
     emit('remove', id);
+  };
+
+  const getProductById = (id: string) => {
+    emit('get-card', id);
   };
 </script>
 

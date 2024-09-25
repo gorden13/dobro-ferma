@@ -1,3 +1,5 @@
+import type { UploadUserFile } from 'element-plus';
+
 export interface IProduct {
   _id: string;
   name: string;
@@ -8,7 +10,7 @@ export interface IProduct {
   description: string;
   discount: number | null;
   likes: [];
-  pictures: string[];
+  images: string[];
   price: number;
   review: string[];
   stock: number;
@@ -31,10 +33,11 @@ export interface IProductCreateRequest {
   price: number | null;
   category: string;
   available: true;
-  _id: string;
+  _id?: string;
   description?: string;
   discount?: number;
-  pictures?: File[];
+  images?: UploadUserFile[];
   stock: number;
   weight: number | null;
+  author: string;
 }

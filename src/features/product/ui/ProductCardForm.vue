@@ -33,8 +33,8 @@
         <UiCurrencyInput v-model:model-value="createForm.price" size="large" clearable />
       </ElFormItem>
 
-      <ElFormItem required label="Фото" prop="pictures[0]">
-        <UiUpload v-model:file-list="createForm.pictures" жlimit="3" />
+      <ElFormItem required label="Фото" prop="images[0]">
+        <UiUpload v-model:file-list="createForm.images" :limit="3" />
       </ElFormItem>
     </ElForm>
   </ElCard>
@@ -70,7 +70,7 @@
     name: [REQUIRED_RULE, { min: 3, message: 'Необходимо минимум 3 символа', trigger: 'blur' }],
     stock: [REQUIRED_RULE],
     price: [REQUIRED_RULE],
-    pictures: [{ required: true, message: 'Необходимо загрузить минимум 1 файл', trigger: 'blur' }],
+    images: [{ required: true, message: 'Необходимо загрузить минимум 1 файл', trigger: 'blur' }],
   });
   const createForm = reactive(props.modelValue);
 

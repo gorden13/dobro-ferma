@@ -2,7 +2,6 @@
   <ElUpload
     v-model:file-list="fileListModel"
     class="upload-field"
-    action="https://dskweb.ru/api/uploads/product/"
     list-type="picture-card"
     :auto-upload="false"
     multiple
@@ -14,17 +13,18 @@
     <ElIcon class="el-icon--upload" :size="32"><UploadFilled color="var(--el-color-primary)" /></ElIcon>
 
     <div class="el-upload__text">
-      <ElText type="primary">Выберите файлы (Максимум {{ limit }})</ElText>
+      <ElText type="primary">Выберите файлы</ElText>
     </div>
   </ElUpload>
 </template>
 
 <script setup lang="ts">
+  import { UploadUserFile } from 'element-plus';
   import { computed, PropType } from 'vue';
 
   const props = defineProps({
     fileList: {
-      type: Array as PropType<File[]>,
+      type: Array as PropType<UploadUserFile[]>,
       default: () => [],
     },
     limit: {

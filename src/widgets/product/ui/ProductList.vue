@@ -8,29 +8,24 @@
       v-for="product of products"
       :key="product._id"
       :card="product"
-      @remove="visibleRemoveModal = true"
-    />
-
-    <UiSimpleDialog
-      v-model:visible="visibleRemoveModal"
-      title="Удалить контрагента?"
-      submit-text="Удалить"
-      @submit="removeParticipant"
+      @remove="removeProduct"
+      @get-card="getProductById"
     />
   </div>
 </template>
 
 <script setup lang="ts">
+  import { ElMessage, ElMessageBox } from 'element-plus';
   import { ref } from 'vue';
 
   import { IProduct, useProductsStore } from '@/entities/products';
   import { ProductItemCard } from '@/features/product';
-  import { UiSimpleDialog } from '@/shared/ui';
 
   const productsStore = useProductsStore();
   const products = ref<IProduct[]>([]);
   const isLoading = ref(false);
-  const visibleRemoveModal = ref(false);
+
+  const emit = defineEmits<(event: 'edit-product', product: IProduct) => void>();
 
   const getProducts = async () => {
     isLoading.value = true;
@@ -43,8 +38,51 @@
 
   getProducts();
 
-  const removeParticipant = async (id: string) => {
-    visibleRemoveModal.value = true;
+  const removeProduct = (id: string) => {
+    ElMessageBox.confirm('Карточка товара будет удалена. Продолжить?', '', {
+      confirmButtonText: 'Да',
+      cancelButtonText: 'Отмена',
+      type: 'warning',
+    })
+      .then(async () => {
+        try {
+          isLoading.value = true;
+
+          await productsStore.removeProduct(id);
+
+          ElMessage({
+            type: 'success',
+            message: 'Товар успешно удален!',
+          });
+
+          getProducts();
+        } catch (error) {
+          ElMessage({
+            type: 'error',
+            message: `Ошибка удаления! ${error}`,
+          });
+        } finally {
+          isLoading.value = false;
+        }
+      })
+      .catch(() => {});
+  };
+
+  const getProductById = async (id: string) => {
+    try {
+      isLoading.value = true;
+
+      const result = await productsStore.getProductById(id);
+
+      emit('edit-product', result);
+    } catch (error) {
+      ElMessage({
+        type: 'error',
+        message: `Ошибка получения продукта! ${error}`,
+      });
+    } finally {
+      isLoading.value = false;
+    }
   };
 </script>
 
